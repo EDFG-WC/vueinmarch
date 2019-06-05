@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>定义组件的方式</title>
+  <script src="../liib/vue-2.4.0.js"></script>
+</head>
+<body>
+<div id="app">
+  <!--父组件可以通过属性绑定的方式把需要传递给子组件的数据, 以属性绑定的形式, 传递到子组件内部, 供子组件使用-->
+  <com :damn="msg"></com>
+</div>
+<script>
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      msg: '父组件中的数据'
+    },
+    methods: {},
+    components: {
+      //结论: 经过演示发现, 子组件中默认无法访问到父组件中data的数据
+      com: {
+        template: '<h1>这是子组件---{{damn}}</h1>',
+        props: ['damn'],
+        directives: {},
+        filters: {},
+        data() {
+          return {
+            title: '123',
+            content: '111'
+          }
+        }
+      }
+    }
+  });
+</script>
+</body>
+</html>

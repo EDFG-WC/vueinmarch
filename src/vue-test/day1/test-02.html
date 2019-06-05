@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!--这个style的意思是, 隐藏这个属性的标签, 在v层渲染成功之后, v-cloak属性会消失, 只留下值, 这样就解决了闪烁问题-->
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+<div id="app"><!--v-cloak用来解决闪烁问题, 防止网速慢的情况下, 防止用户看到插值表达式-->
+  <p v-cloak>{{num}}</p>
+  <!--默认v-text是没有闪烁问题的, 使用这个之后, 标签里写的内容会被v-text中的内容覆盖, 而插值表达式只覆盖自己的占位符-->
+  <h4 v-text="num"></h4>
+  <!--html标签把内容变为html格式来使用, 就是值可以带一个标签, 而标签的效果也可以显示出来-->
+  <p v-html="date"></p>
+  <!--v-bind指令中可以写合法的表达式, 所以""里还可以加变量, 省略的写法是:-->
+  <!--<input type="button" v-bind:title="myTitle+'和芒果'" value="click">-->
+  <!--<input type="button" :title="myTitle+'和芒果'+'还有凤梨'" value="click">-->
+  <!--v-on属性可以绑定一个事件, 有click, mouse over等等-->
+  <!--<input type="button" :title="myTitle+'和芒果'+'还有凤梨'" value="click me!" v-on:click="showData">-->
+  <!--<input type="button" :title="myTitle+'和芒果'+'还有凤梨'" value="click" v-on:mouseover="showData">-->
+  <input type="button" :title="myTitle+'吃烤肉'" value="点鸡" @click="showData">
+</div>
+</body>
+<script>
+  var vue = new Vue({
+    el: '#app',
+    data: {
+      num: 123,
+      date: '<h1>2019-03-29<h1>',
+      myTitle: '点击吃葡萄'
+    },
+    methods: {
+      showData: function () {
+        alert('想吃肉!!')
+      }
+  }
+  });
+</script>
+</html>

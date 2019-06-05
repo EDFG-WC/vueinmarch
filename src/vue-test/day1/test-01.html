@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue</title>
+  <!--1. 导入在线vue包-->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--这个div就是vue能控制的所有区域, 它就是MVVM里面的V-->
+<!--{{}}:这是一个插值表达式-->
+<div id="app">
+  {{myMsg}}
+</div>
+<script>
+  //2. 创建一个vue实例
+  //在我们导入包之后, 浏览器中就多了一个vue的构造函数
+  //我们new 出来的vm对象就是我们MVVM中作为VM的调度者
+  var vm = new Vue({
+    //el表示创建的Vue对象控制的区域
+    el: '#app',
+    //表示当前el中要用到的数据
+    //这里的data代表MVVM的M
+    data: {
+      //通过vue提供的指令, 很方便的九八数据渲染到页面上, 程序员不再手动操作DOM元素了, vue这样的框架不提倡我们手动去操作DOM元素
+      myMsg: '肛好遇见你'
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>定义和使用组建</title>
+  <script src="../liib/vue-2.4.0.js"></script>
+</head>
+<body>
+<div id="app">
+  <my-com100></my-com100>
+</div>
+<template id="templ">
+  <div>
+    <h1>这是通过template元素, 在外部定义的组件结构, 这个方式, 有代码的只能提示和高亮</h1>
+    <h4>好棒棒</h4>
+  </div>
+</template>
+
+<div id="app2">
+  <login></login>
+</div>
+
+<template id="templ2">
+  <h1>这是私有的login组件</h1>
+</template>
+<script>
+  //1.1 使用Vue.extend创建全局Vue组件
+  var com100 = Vue.extend({
+    //template只能有一个根元素(如果里面有多个标签, 那就用一个<div></div>把多个元素包起来)
+    template: '#templ'
+  });
+  //1.2 使用Vue.component('组件的名称', 创建出来的组件模板对象) 注册一个真正有名称的组件
+  //可以用驼峰法则命名组件, 但使用时只能用-来隔开单词myCom100只能用my-com100
+  //Vue.component的第一个参数: 组件的名称, 将来在引用组件的时候, 就是一个标签形式来引入它的
+  //Vue.component的第二个参数: Vue.extend创建的组件, 其中template就是组件将来要展示的HTML内容
+  Vue.component('myCom100', com100);
+  var vm = new Vue({
+    el: '#app',
+    data: {},
+    methods: {}
+  });
+
+  var vm2 = new Vue({
+    //vue元素
+    el: '#app2',
+    data: {},
+    methods: {},
+    filters: {},
+    directives: {},
+    components: {
+      //定义实例内部私有组件
+      login: {
+        template: '#templ2'
+      }
+    },
+    //生命周期钩子函数(从颜色上能看出来区别)
+    beforeCreate() {
+    },
+    created() {
+    },
+    beforeMount() {
+    },
+    mounted() {
+    },
+    beforeUpdate() {
+    },
+    updated() {
+    },
+    beforeDestroy() {
+    },
+    destroyed() {
+    }
+  });
+</script>
+</body>
+</html>

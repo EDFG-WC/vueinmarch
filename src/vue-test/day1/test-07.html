@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS样式</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+    .red {
+      color: red;
+    }
+
+    .thin {
+      font-weight: 200;
+    }
+
+    .italic {
+      font-style: italic;
+    }
+
+    .active {
+      letter-spacing: 0.5em;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <!--<h1 class="red thin">too big to image</h1>-->
+  <!--第一种使用方式, 直接传递一个数组(指的是[]), 注意: 这里的class需要使用v-bind做数据绑定-->
+  <!--<h1 :class="['red', 'thin','italic']">too big to image</h1>-->
+  <!--第二种使用方式, 在数组中(指的是[])使用三元运算符-->
+  <!--<h1 :class="['thin','active', flag?'italic':'']">too big to image</h1>-->
+  <!--第三种使用方式, 在数组中(指的是[])使用对象(指的是{})来-->
+  <!--<h1 :class="['thin','active', {'red':flag}]">too big to image</h1>-->
+  <!--直接使用对象(指的是{})来操作属性, key可以不带引号-->
+  <!--<h1 :class="{'red':flag,'italic':true,'thin':false}">too big to image</h1>-->
+  <!--<h1 :class="{red:flag,italic:true,thin:true,active:true}">too big to image</h1>-->
+  <h1 :class="classObj">too big to image</h1>
+
+</div>
+<script>
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      flag: true,
+      classObj: {red: false, italic: true, thin: true, active: false}
+    },
+    methods: {}
+  });
+</script>
+</body>
+</html>

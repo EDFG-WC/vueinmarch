@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>定义和使用组建</title>
+  <script src="../liib/vue-2.4.0.js"></script>
+</head>
+<body>
+<div id="app">
+  <mycompo1></mycompo1>
+</div>
+
+<script>
+  Vue.component('mycompo1', {
+    template: '<h1>这是全局组件==={{msg}}</h1>',
+    //1. 组件里可以有自己的data数据.
+    //2. 组件的data必须是一个函数(方法), 而实例中的data是一个对象.
+    //3. 组件的data处理必须是个方法之外, 还必须返回一个对象.
+    //4. 组件中的data数据使用方式和实例中的data使用方式完全一样
+    //5. 使用范围: 只能在component之内使用
+    data: function () {
+      return {
+        msg: '这是组件中data的数据'
+      }
+    }
+  });
+
+  var vm = new Vue({
+    //vue元素
+    el: '#app',
+    data: {},
+    methods: {},
+    filters: {},
+    directives: {},
+    components: {
+      //定义实例内部私有组件
+      login: {
+        template: '#templ2'
+      }
+    },
+    //生命周期钩子函数(从颜色上能看出来区别)
+    beforeCreate() {
+    },
+    created() {
+    },
+    beforeMount() {
+    },
+    mounted() {
+    },
+    beforeUpdate() {
+    },
+    updated() {
+    },
+    beforeDestroy() {
+    },
+    destroyed() {
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>v-for</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <!--循环list<map>-->
+  <p v-for="(user,i) in list">
+    {{user.id}}---{{user.name}}---{{i}}
+  </p>
+</div>
+<script>
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      list: [
+        {id: 1, name: 'zz1'},
+        {id: 2, name: 'zz2'},
+        {id: 3, name: 'zz3'},
+        {id: 4, name: 'zz5'},
+        {id: 6, name: 'zz6'}
+      ]
+    },
+    methods: {}
+  });
+</script>
+</body>
+</html>

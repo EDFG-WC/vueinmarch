@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>事件修饰符</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+    .inner {
+      height: 150px;
+      background-color: pink;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <!--<div class="inner" @click="div1Handler">
+    &lt;!&ndash;使用.stop组织冒泡&ndash;&gt;
+    <input type="button" value="点你就是点鸡" @click.stop="btnHandler">
+    &lt;!&ndash;用prevent来阻止事件发生&ndash;&gt;
+    <a href="www.google.com" @click.prevent="linkClick">有问题去谷歌!</a>
+  </div>-->
+  <!--使用capture来使用捕获机制, 反转冒泡效果-->
+  <!--<div class="inner" @click.capture="div1Handler">
+    &lt;!&ndash;使用.stop组织冒泡&ndash;&gt;
+    <input type="button" value="点你就是点鸡" @click="btnHandler">
+    &lt;!&ndash;用prevent来阻止事件发生&ndash;&gt;
+    &lt;!&ndash;<a href="www.google.com" @click.prevent="linkClick">有问题去谷歌!</a>&ndash;&gt;
+  </div>-->
+  <!--标记了.self的标签不会受到冒泡的影响,只有自己被点击的时候才会触发效果-->
+  <!--<div class="inner" @click.self="div1Handler">
+    &lt;!&ndash;使用.stop组织冒泡&ndash;&gt;
+    <input type="button" value="点你就是点鸡" @click="btnHandler">
+    &lt;!&ndash;用prevent来组织事件发生&ndash;&gt;
+    &lt;!&ndash;<a href="www.google.com" @click.prevent="linkClick">有问题去谷歌!</a>&ndash;&gt;
+  </div>-->
+  <!--.self不能阻止冒泡行为, 写了.self的标签会终止, .stop会终止冒泡行为-->
+  <div class="inner" @click.self="div1Handler">
+    <!--使用.stop组织冒泡-->
+    <input type="button" value="点你就是点鸡" @click="btnHandler">
+    <!--用.once只触发一次事件-->
+    <a href="www.google.com" @click.once="linkClick">有问题去谷歌!</a>
+  </div>
+</div>
+<script>
+  var vm = new Vue({
+    el: '#app',
+    data: {},
+    methods: {
+      div1Handler() {
+        console.log('触发inner div的点击事件');
+      },
+      btnHandler() {
+        console.log('触发btn的点击事件');
+      },
+      linkClick() {
+        console.log('触发链接的点击事件');
+      }
+    }
+  });
+</script>
+</body>
+</html>

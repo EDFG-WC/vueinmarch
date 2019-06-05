@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>组件切换方式2</title>
+  <script src="../liib/vue-2.4.0.js"></script>
+</head>
+<body>
+<div id="app">
+  <a href="" @click.prevent="componentName='login'">登陆</a>
+  <a href="" @click.prevent="componentName='register'">注册</a>
+  <component :is="componentName"></component>
+  <!--Vue提供了component组件, 来展示对应名称的组件-->
+  <!--component是一个占位符, :is属性可以用来指定要展示的组件的名称-->
+  <!--组件名称是字符串, 而:is=""(属性绑定)会把引号里的值作为表达式, 如果想传data里的数据来要用''引起来才行-->
+  <!--<component :is="'login'"></component>
+  <component :is="'register'"></component>-->
+</div>
+<script>
+  Vue.component('login', {
+    template: '<h3>登陆组件</h3>'
+  });
+  Vue.component('register', {
+    template: '<h3>注册组件</h3>'
+  });
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      //当前component中的:is绑定组件名称
+      componentName: 'login'
+    },
+    methods: {}
+  });
+</script>
+</body>
+</html>

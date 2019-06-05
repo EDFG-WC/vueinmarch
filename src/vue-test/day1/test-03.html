@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>跑马灯</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <input type="button" value="吃" @click="eat">
+  <input type="button" value="不吃" @click="doNotEat">
+  <h4>{{msg}}</h4>
+</div>
+<script>
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      msg: '吃葡萄不吐葡萄皮,不吃葡萄可以吃肉啊!',
+      //在data中定义定时器id
+      intervalId: null
+    },
+    methods: {
+      //定义点击事件的方法, 用subString方法把字符串的第一个字符截取出来, 放到最后一个位置上,最后加一个定时器让方法循环, 另一个方法停止定时器.
+      //简化的写法:
+      eat() {
+        //在vm实例中(内部)要是想获取data中的数据或者调用methods中的方法, 必须使用this.属性名或者this.方法名进行访问; this代表这个vm实例
+        /*var _this = this;
+        setInterval(function () {
+          var firstPart = _this.msg.substring(0, 1);
+          var lastPart = _this.msg.substring(1);
+          _this.msg = lastPart + firstPart;
+          console.log(_this.msg);
+        }, 400);*/
+        //使用箭头函数(ES6语法,解决指向问题, 解决内外部传参问题), 传递参数进入setInterval方法:
+        if (this.intervalId != null) {
+          return;
+        }
+        this.intervalId = setInterval(() => {
+          var firstPart = this.msg.substring(0, 1);
+          var lastPart = this.msg.substring(1);
+          this.msg = lastPart + firstPart;
+          console.log(this.msg);
+        }, 400);
+      },
+      //停止功能
+      doNotEat() {
+        clearInterval(this.intervalId);
+        //每当清除了定时器, 就需要把intervalId重置为null
+        this.intervalId = null;
+      }
+    }
+  });
+</script>
+</body>
+</html>

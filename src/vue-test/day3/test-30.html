@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>路由</title>
+  <script src="../liib/vue-2.4.0.js"></script>
+  <script src="../liib/vue-router-3.0.1.js"></script>
+  <style>
+    .router-link-active, .myActive {
+      color: red;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 80px;
+      text-decoration: underline;
+      background-color: green;
+    }
+
+    .v-enter,
+    .v-leave-to {
+      opacity: 0;
+      transform: translateX(140px);
+    }
+
+    .v-enter-active,
+    .v-leave-active {
+      transition: all 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <!--路由的编写顺序: 1.定义组件;2.把组件绑定到路由上;3.把路由注册在vm上;
+  4.在view层使用view-router标签;5.在view层写a或者router-link标签-->
+  <!--路由的运行顺序: 1.点a标签; 2.激活路由监听事件; 3.路由展示组件-->
+  <!--<a href="#/login">登陆组件</a>
+  <a href="#/register">注册组件</a>-->
+  <!--router-link默认渲染为一个a标签-->
+  <router-link to="/login">登陆组件</router-link>
+  <router-link to="/register">注册组件</router-link>
+  <!--这是vue-router提供的元素, 专门用来当作占位符, 路由规则, 匹配的组件就会展示到这个router-view上-->
+  <router-view></router-view>
+</div>
+<script>
+
+  var login = {
+    template: '<h1>登陆组件</h1>'
+  };
+
+  var register = {
+    template: '<h1>注册组件</h1>'
+  };
+  //vue中的路由实现的是html中锚点的作用, 因为不推荐DOM操作所以搞了路由
+  //创建一个路由对象, 当导入vue-router包之后, 在window全局对象中, 就有了一个路由的构造函数叫做VueRouter
+  //在new路由对象的时候, 可以为构造函数传递一个配置对象
+  var routerObj = new VueRouter({
+    //routes 这个配置对象中的route表示'路由匹配规则'的意思
+    routes: [
+      //每个路由队则,都是一个对象, 这个规则对象身上都有2个必须的属性
+      //属性1: path, 表示监听哪个路由链接地址
+      //属性2: component, 表示如果是路由前面匹配的path, 则展示component属性对应的那个组件
+      //注意: component的属性值, 必须是一个组件的模板对象, 不能是组件的引用名称
+      //redirect强制性地让刷新功能每次都必须刷新指向这个地址的网页
+      {path: '/', redirect: '/login'},
+      {path: '/login', component: login},
+      {path: '/register', component: register}
+    ],
+    linkActiveClass: 'myActive'
+  });
+  var vm = new Vue({
+    el: '#app',
+    data: {},
+    methods: {},
+    //将路由规则对象, 注册到vm实例上, 用来监听URL地址的变化, 然后展示对应的组件
+    router: routerObj
+  });
+</script>
+</body>
+</html>

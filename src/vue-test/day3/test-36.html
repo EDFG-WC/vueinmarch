@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>父子组件传值</title>
+  <script src="../liib/vue-2.4.0.js"></script>
+  <script src="../liib/vue-router-3.0.1.js"></script>
+  <style>
+    .header {
+      background-color: orange;
+      height: 80px;
+    }
+
+    .container {
+      display: flex;
+      height: 500px;
+    }
+
+    .main {
+      background-color: lightpink;
+      flex: 8;
+    }
+
+    .left {
+      background-color: lightgreen;
+      flex: 2;
+    }
+
+    h1 {
+      margin: 0;
+      padding: 0;
+      font-size: 10px;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <com1 :parentmsg="msg" @func="getMsg"></com1>
+</div>
+<template id="tmpl1">
+  <div>
+    <h1>这是子元素----{{parentmsg}}</h1>
+    <button @click="sendMsg">toFather</button>
+  </div>
+</template>
+<script>
+
+  var com1 = {
+    template: '#tmpl1',
+    data() {
+      return {
+        msg: '给爸爸 一些钱去挥霍'
+      }
+    },
+    props: ['parentmsg'],
+    sendMsg(){
+      this.$emit('func',this.msg);
+    }
+  };
+
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      msg: 'dad has $100, son has $50',
+      msgFromSon: ''
+    },
+    methods: {
+      getMsg(data) {
+        this.msgFromSon = data;
+        console.log(this.msgFromSon);
+      }
+    },
+    components: {
+      com1
+    }
+  });
+
+</script>
+</body>
+</html>

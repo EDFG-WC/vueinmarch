@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>组件的使用</title>
+  <script src="../liib/vue-2.4.0.js"></script>
+</head>
+<body>
+<div id="app">
+  <counter></counter>
+  <hr>
+  <counter></counter>
+  <hr>
+  <counter></counter>
+</div>
+<template id="template1">
+  <div>
+    <input type="button" value="+1" @click="selfIncrease">
+    <h3>{{count}}</h3>
+  </div>
+</template>
+<script>
+  var dataObj = {count: 0}
+  Vue.component('counter', {
+    template: '#template1',
+    data() {
+      //一个组件的 data 选项必须是一个函数，因此每个实例可以维护一份被返回对象的独立的拷贝
+      //这是非常重要的, 否则重复引用这个组件的时候会导致变量成为公用的.
+      return {count: 0};
+    },
+    methods: {
+      selfIncrease() {
+        this.count++;
+      }
+    }
+  });
+
+  var vm = new Vue({
+    //vue元素
+    el: '#app',
+    data: {},
+    methods: {},
+    filters: {},
+    directives: {},
+    components: {},
+    //生命周期钩子函数(从颜色上能看出来区别)
+    beforeCreate() {
+    },
+    created() {
+    },
+    beforeMount() {
+    },
+    mounted() {
+    },
+    beforeUpdate() {
+    },
+    updated() {
+    },
+    beforeDestroy() {
+    },
+    destroyed() {
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>v-model指令</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <input type="text" v-model="value1">
+  <select style="width: 45px; color: darkgoldenrod" v-model="theOpt">
+    <option value="+">+</option>
+    <option value="-">-</option>
+    <option value="*">*</option>
+    <option value="/">/</option>
+  </select>
+  <input type="text" v-model="value2">
+  <input type="button" value="=" @click="calculate" style="width: 45px; color: crimson">
+  <input type="text" v-model="theResult">
+</div>
+<script>
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      value1: 0,
+      value2: 0,
+      theResult: 0,
+      theOpt: '+'
+    },
+    methods: {
+      calculate() {
+        /*switch (this.theOpt) {
+          case '+':
+            this.theResult = parseInt(this.value1) + parseInt(this.value2);
+            break;
+          case '-':
+            this.theResult = parseInt(this.value1) - parseInt(this.value2);
+            break;
+          case '*':
+            this.theResult = parseInt(this.value1) * parseInt(this.value2);
+            break;
+          case '/':
+            this.theResult = parseInt(this.value1) / parseInt(this.value2);
+            break;
+        }*/
+        //尽量少用的eval方法.
+        var codeStr = 'parseInt(this.value1) ' + this.theOpt + ' parseInt(this.value2)';
+        this.theResult = eval(codeStr);
+      }
+    }
+  });
+</script>
+</body>
+</html>
